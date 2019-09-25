@@ -2,6 +2,7 @@ import os
 import tarfile
 import time
 
+
 ##########################################################
 # README
 ##########################################################
@@ -12,12 +13,14 @@ import time
 #	# python3 download_MLHD.py
 ##########################################################
 path_to_save = "/media/my-extra-hard-drive/MLHD/"
-start = 0 
+start = 20
 end = 576
+
 
 ##########################################################
 # Downloading the dataset
 ##########################################################
+print('Downloading the dataset...')
 for index in range(start, end):
 	file_name = 'MLHD_{:03d}.tar'.format(index)
 	print('Downloading the file named: {0}'.format(file_name))
@@ -32,12 +35,30 @@ for index in range(start, end):
 ##########################################################
 # Unpacking the dataset
 ##########################################################
-files = os.path.listdir(path_to_save)
+print('Unpacking the dataset...')
+# Part I - Unpack the paths
+files = os.listdir(path_to_save)
 for file_name in files:
 	if 'tar' in file_name:
-		tf = tarfile.open(file_name)
-		tf.extractall(os.path.join(path_to_save, file_name))
+		untar_file_name = os.path.join(path_to_save, file_name)
+		path_file_name = os.path.splitext(untar_file_name)[0]
+		print('Untar file: {0}'.format(untar_file_name))
+		tf = tarfile.open(untar_file_name)
+		tf.extractall(path_file_name)
+		tf.close()
+
+# Part II - Unpack the files
+paths = os.listdir(path_to_save)
+for sub_path in paths:
+	complete_path = os.path.join(path_to_save, sub_path)
+	print('Unzip the path: {0}'.format(complete_path))
+	if os.path.isdir(complete_path):
+		command = "gzip -d {0}/*".format(complete_path)
+		os.system(command)
 
 
+##########################################################
+# Check if everything is ok before era '.tar' files
+##########################################################
 
 
