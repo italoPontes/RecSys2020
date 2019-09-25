@@ -13,7 +13,7 @@ import time
 #	# python3 download_MLHD.py
 ##########################################################
 path_to_save = "/media/my-extra-hard-drive/MLHD/"
-start = 20
+start = 0
 end = 576
 
 
@@ -58,7 +58,7 @@ for sub_path in paths:
 
 
 ##########################################################
-# Check if everything is ok before era '.tar' files
+# You have to check if everything is ok before erase '.tar' files
 ##########################################################
 
 
