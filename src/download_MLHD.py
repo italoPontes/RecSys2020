@@ -1,7 +1,7 @@
 import os
 import tarfile
 import time
-
+import sys
 
 ##########################################################
 # README
@@ -12,10 +12,12 @@ import time
 # 3. Run this script on terminal and wait:
 #	# python3 download_MLHD.py
 ##########################################################
-path_to_save = "/media/my-extra-hard-drive/MLHD/"
-start = 0
+path_to_save = "/media/my-external-hard-drive/MLHD/"
+start = 20
 end = 576
-
+minutes_to_wait = 5 # By default, this program will wait for 5 minutes
+if len(sys.argv) == 2:
+	minutes_to_wait = int(sys.argv[1])
 
 ##########################################################
 # Downloading the dataset
@@ -29,7 +31,7 @@ for index in range(start, end):
 		os.system(command)
 		# Wait 5 minutes before start download the next file
 		# This value depends of your speed Internet connection
-		time.sleep(60*5) 
+		time.sleep(60*minutes_to_wait) 
 
 
 ##########################################################
@@ -55,8 +57,6 @@ for sub_path in paths:
 	if os.path.isdir(complete_path):
 		command = "gzip -d {0}/*".format(complete_path)
 		os.system(command)
-
-
 ##########################################################
 # You have to check if everything is ok before erase '.tar' files
 ##########################################################
